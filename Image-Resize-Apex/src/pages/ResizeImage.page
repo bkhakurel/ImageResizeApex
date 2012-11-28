@@ -50,7 +50,7 @@
 		     	 and view state is limited to 135 KB.It's better to try smaller image like 60-70 KB.If view state size is exceeded error will occur.
 		     </li>
 		     <li>
-		     	Click on "Click to load uploaded image to viewstate"
+		     	Click on "Click to load uploaded image to viewstate".Since rerender is not allowed with apex inputFile component so to grab the base64 encoded value in javascript.You need to get from viewstate.
 		     </li>
 		      <li>
 		     	Enter the image size ratio in the text box and you will see the change.
