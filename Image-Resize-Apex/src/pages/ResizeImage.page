@@ -10,21 +10,21 @@
 		var img = new Image();
 	</script>
 	<apex:outputPanel id="theScript">
-	<script type="text/javascript">
-		  img.src = 'data:image;base64,' + "{!theBase64Value}";//need to add the MIME type 
-		  img.onload = function() 
-		  {
-		  	$('#originalImageHolder').append(img);
-		  }
-		  function modifyImage(obj)
-		  {
-		  	can.width = img.width * (obj.value/100);
-		    can.height = img.height* (obj.value/100);
-		    ctx.scale(obj.value/100, obj.value/100); 
-		    ctx.drawImage(img, 0, 0); //draw resize image in canvas
-		    $("[id$='theThumbnail']").attr('value',can.toDataURL());
-		  }
-	</script>
+		<script type="text/javascript">
+			  img.src = 'data:image;base64,' + "{!theBase64Value}";//need to add the MIME type 
+			  img.onload = function() 
+			  {
+			  	$('#originalImageHolder').append(img);
+			  }
+			  function modifyImage(obj)
+			  {
+			  	can.width = img.width * (obj.value/100);
+			    can.height = img.height* (obj.value/100);
+			    ctx.scale(obj.value/100, obj.value/100); 
+			    ctx.drawImage(img, 0, 0); //draw resize image in canvas
+			    $("[id$='theThumbnail']").attr('value',can.toDataURL());
+			  }
+		</script>
 	</apex:outputPanel>
 	
 	<apex:messages />

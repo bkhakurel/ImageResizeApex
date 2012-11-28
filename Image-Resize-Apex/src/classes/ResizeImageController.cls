@@ -5,29 +5,28 @@ public with sharing class ResizeImageController
 	 public String resizedBase64Value{get;set;}
 	 public ResizeImageController()
 	 {
-	   thumbnail = new Attachment();
- 	   theAttachment = new Attachment();
+        thumbnail = new Attachment();
+        theAttachment = new Attachment();
+     }
+     
+     public String theBase64Value
+     {
+     	 get
+     	 {
+   		 	if(theAttachment.Body != null)
+   		 	{
+   		 		theBase64Value = EncodingUtil.base64Encode(theAttachment.Body);
+   		 		theAttachment.Body = null;//null out as we don't need this any more.helps to reduce view state
+   		 	}
+     	 	return theBase64Value;
+     	 }
+     	 set;
+     }
+     
+	 public void doAction()
+	 {
+	 	//doesn't do any thing but the uploaded image is put in the view state
 	 }
-     
-	public String theBase64Value
-	{
-	      get
-	      {
-	    	if(theAttachment.Body != null)
-	    	{
-	    		theBase64Value = EncodingUtil.base64Encode(theAttachment.Body);
-	    		theAttachment.Body = null;//null out as we don't need this any more.helps to reduce view state
-	    	}
-	      	return theBase64Value;
-	      }
-	      set;
-	}
-     
-	public void doAction()
-	{
-	 //doesn't do any thing but the uploaded image is put in the view state
-	}
-     
      //code to save the resized image
 	 /* 
 	 public void saveThumbNail()
