@@ -42,7 +42,7 @@ public with sharing class ResizeImageController
 	 	
 	 	thumbnail.ParentId = theMerchandise.Id;
 	 	thumbnail.Name = theAttachment.Name;
-	 	String tempvalue =  resizedBase64Value.substringAfterLast('base64,');//apex doesn't seem to like this MIME type info before the base64 value.so,removing that part.
+	 	String tempvalue =  resizedBase64Value.substringAfterLast('base64,');//apex doesn't seem to like this MIME type info .so,removing that part.
 	 	thumbnail.Body = EncodingUtil.base64Decode(tempvalue);
 	 	insert thumbnail;
 	 }
