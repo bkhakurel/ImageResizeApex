@@ -59,6 +59,10 @@
 		      Since this is just a demo , I don't allow it to save resized image to the org.
 		      <a href="https://github.com/bkhakurel/ImageResizeApex.git" target="_blank">Click the link</a> to see the code which also saves the resized image.
 		     </li>
+		     <li>
+		     	Apex has a method to give the base64Encoded value of the blob.We use that to construct the image in javascript and load it on the canvas.Then we modify the canvas and 
+		     	and get back the base64 value of the resized image.There is a method to do that.Again decode that value in apex to get the blob back and save it. Easy.
+		     </li>
 	     </ul>
      </div>
 </apex:page>
