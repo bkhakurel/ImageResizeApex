@@ -1,0 +1,64 @@
+<apex:page showHeader="False" controller="ResizeImageController">
+	<div id="originalImageHolder">
+	    <canvas id="canvas1" width="150" height="150" style="border: 1px solid black">
+		</canvas>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		var can = document.getElementById('canvas1');
+		var ctx = can.getContext('2d');
+		var img = new Image();
+	</script>
+	<apex:outputPanel id="theScript">
+		<script type="text/javascript">
+			  img.src = 'data:image;base64,' + "{!theBase64Value}";//need to add the MIME type 
+			  img.onload = function() 
+			  {
+			  	$('#originalImageHolder').append(img);
+			  }
+			  function modifyImage(obj)
+			  {
+			  	can.width = img.width * (obj.value/100);
+			    can.height = img.height* (obj.value/100);
+			    ctx.scale(obj.value/100, obj.value/100); 
+			    ctx.drawImage(img, 0, 0); //draw resize image in canvas
+			    $("[id$='theThumbnail']").attr('value',can.toDataURL());
+			  }
+		</script>
+	</apex:outputPanel>
+	
+	<apex:messages />
+    <apex:form id="theForm">
+	      <apex:pageBlock rendered="{!(theBase64Value == null)}">
+	          <apex:pageBlockSection >
+	            <apex:inputFile value="{!theAttachment.body}" filename="{!theAttachment.name}"/>
+	             <apex:inputHidden value="{!resizedBase64Value}" id="theThumbnail"/>
+	            <apex:commandButton value="Click to load uploaded image to viewstate" action="{!doAction}"/>
+	          </apex:pageBlockSection>
+	       </apex:pageBlock>
+	       <apex:outputLabel value="Enter the ration in  %"  rendered="{!(theBase64Value != null)}"/>
+	       <apex:inputText onChange="modifyImage(this);" rendered="{!(theBase64Value != null)}"/>
+	     <!--<apex:commandButton value="Save Thumbnail" action="{!saveThumbNail}"/>-->
+	    <div id="originalImageHolder">
+	    </div> 
+	 </apex:form>
+     
+     <div id="info">
+	     <ul>
+		     <li>
+		     	Click on "Choose a file".Any image file should work.I was testing with jpg.Since, the image is loaded back from view state 
+		     	 and view state is limited to 135 KB.It's better to try smaller image like 60-70 KB.If view state size is exceeded error will occur.
+		     </li>
+		     <li>
+		     	Click on "Click to load uploaded image to viewstate"
+		     </li>
+		      <li>
+		     	Enter the image size ratio in the text box and you will see the change.
+		     </li>
+		     <li>
+		      Since this is just a demo , I don't allow it to save resized image to the org.
+		      <a href="https://github.com/bkhakurel/ImageResizeApex.git" target="_blank">Click the link</a> to see the code which also saves the resized image.
+		     </li>
+	     </ul>
+     </div>
+</apex:page>
